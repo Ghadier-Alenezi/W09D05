@@ -46,13 +46,9 @@
 - Post
 - Comment
 - Like
-
 ---
-
 # UML Diagram
-
 ![alt text]()
-
 ---
 
 # Server / Backend
