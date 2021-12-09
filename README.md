@@ -43,6 +43,9 @@
 - Timeline
 - User
 - Admin
+- Post
+- Comment
+- Like
 
 ---
 
