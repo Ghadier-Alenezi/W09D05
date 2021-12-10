@@ -29,8 +29,6 @@ const VerifyEmail = () => {
     }
   };
 
-  verifyEmail();
-
   return (
     <>
       <h3>Enter the code to Verify your account</h3>
