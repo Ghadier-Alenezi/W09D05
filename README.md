@@ -28,17 +28,19 @@
 
 ## React Router Routes (React App)
 
-| Path      | Component |                                                       Behavior |
-| :-------- | :-------: | -------------------------------------------------------------: |
-| /         | Timeline  |                                                      Home page |
-| /register | Register  | Signup input, link to login, navigate to homepage after signup |
-| /login    |   Login   |  Login input, link to signup, navigate to homepage after login |
-| /profile  |  Profile  |                user page, account info, posts, comments, likes |
-| /admin    |   Admin   |                         Admin page, all users, delete any user |
+| Path         |  Component  |                                                       Behavior |
+| :----------- | :---------: | -------------------------------------------------------------: |
+| /            |  Timeline   |                                                      Home page |
+| /register    |  Register   | Signup input, link to login, navigate to homepage after signup |
+| /login       |    Login    |  Login input, link to signup, navigate to homepage after login |
+| /profile     |   Profile   |                user page, account info, posts, comments, likes |
+| /admin       |    Admin    |                         Admin page, all users, delete any user |
+| /verifyEmail | VerifyEmail |            Verify Email enter the code that sent to user email |
 
 ## Components
 
 - Register
+- VerifyEmail
 - Login
 - Timeline
 - User
@@ -46,10 +48,12 @@
 - Post
 - Comment
 - Like
+
 ---
+
 # UML Diagram
-![alt text]()
----
+
+## ![alt text]()
 
 # Server / Backend
 
