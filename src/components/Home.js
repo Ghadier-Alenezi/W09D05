@@ -49,15 +49,15 @@ const Home = () => {
           {logged ? (
             <>
               <Register />
-              <h3>
+              <Text>
                 Do you already have an account?
                 <Button onClick={(e) => setLogged(false)}>Log In</Button>
-              </h3>
+              </Text>
             </>
           ) : (
             <>
               <Login />
-              <h3>
+              <Text>
                 You don't have an account yet?
                 <Button m="8px"
                   onClick={(e) => {
@@ -66,7 +66,7 @@ const Home = () => {
                 >
                   Register Here
                 </Button>
-              </h3>
+              </Text>
             </>
           )}
         </div>

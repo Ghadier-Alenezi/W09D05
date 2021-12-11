@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import LoginGoogle from "./LoginGoogle";
 import { useNavigate } from "react-router-dom";
 import {
   FormControl,
@@ -18,10 +19,9 @@ import {
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Register = () => {
-  const { password } = this.state;
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [newpassword, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   // const [avatar, setAvatar] = useState("")
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -102,6 +102,7 @@ const Register = () => {
           <FormHelperText>Keep it secret.</FormHelperText>
         </FormControl>
         <Button onClick={signUp}> Sign Up</Button>
+        <LoginGoogle />
       </Stack>
     </>
   );
