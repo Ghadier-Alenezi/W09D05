@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  Button,
+  Divider,
+  Heading,
+  Stack,
+  InputRightElement,
+  InputGroup,
+} from "@chakra-ui/react";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Register = () => {
+  const { password } = this.state;
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [newpassword, setPassword] = useState("");
   // const [avatar, setAvatar] = useState("")
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [role, setRole] = useState("61a750d07acff210a70d2b8c");
   const navigate = useNavigate();
@@ -30,49 +45,64 @@ const Register = () => {
     }
   };
 
-  const toLogin = () => {
-    navigate("/login");
-  };
-
   return (
     <>
-      <h2>Sign Up</h2>
-      <hr />
-      <br />
-      <h3>Your User Name</h3>
-      <input
-        type="name"
-        placeholder="user name"
-        value={userName}
-        onChange={(e) => {
-          setUserName(e.target.value);
-        }}
-      />
-      <h3>Your Email</h3>
-      <input
-        type="email"
-        placeholder="email"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      />
-      <h3>Your Password</h3>
-      <input
-        type="password"
-        placeholder="password"
-        value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      />
-      <hr />
-      <br />
-      <button onClick={signUp}> Sign Up</button>
-      <hr />
-      <br />
-      <h3>Do you have an account?</h3>
-      <button onClick={toLogin}>Sign in here</button>
+      <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
+        <Heading>Sign Up</Heading>
+        <Divider height="30px" color="white" />
+        <FormControl isRequired>
+          <FormLabel m="8px">Your User Name</FormLabel>
+          <Input
+            type="name"
+            placeholder="user name"
+            autoComplete="off"
+            value={userName}
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+          />
+          <FormHelperText>Pic a unique user name.</FormHelperText>
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel m="8px">Your Email</FormLabel>
+          <Input
+            type="email"
+            placeholder="email"
+            autoComplete="off"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <FormHelperText>We'll never share your email.</FormHelperText>
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel m="8px">Your Password</FormLabel>
+          <InputGroup>
+            <Input
+              type={showPassword ? "text" : "password"}
+              placeholder="password"
+              autoComplete="off"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <InputRightElement width="4rem">
+              <Button
+                height="1.7rem"
+                size="sm"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {" "}
+                show
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          <FormHelperText>Keep it secret.</FormHelperText>
+        </FormControl>
+        <Button onClick={signUp}> Sign Up</Button>
+      </Stack>
     </>
   );
 };

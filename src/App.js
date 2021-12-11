@@ -1,17 +1,16 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import VerifyEmail from "./components/VerifyEmail";
-
+// import { Routes, Route } from "react-router-dom";
+// import Register from "./components/Register";
+// import Login from "./components/Login";
+// import VerifyEmail from "./components/VerifyEmail";
+import Home from "./components/Home";
+import { Center } from "@chakra-ui/react";
 const App = () => {
   return (
     <>
-      <Routes>
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/verifyEmail" element={<VerifyEmail />} />
-        <Route exact path="/login" element={<Login />} />
-      </Routes>
+      <Center  w='100%' h='100%'>
+        <Home />
+      </Center>
     </>
   );
 };

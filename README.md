@@ -28,14 +28,15 @@
 
 ## React Router Routes (React App)
 
-| Path         |  Component  |                                                       Behavior |
-| :----------- | :---------: | -------------------------------------------------------------: |
-| /            |  Timeline   |                                                      Home page |
-| /register    |  Register   | Signup input, link to login, navigate to homepage after signup |
-| /login       |    Login    |  Login input, link to signup, navigate to homepage after login |
-| /profile     |   Profile   |                user page, account info, posts, comments, likes |
-| /admin       |    Admin    |                         Admin page, all users, delete any user |
-| /verifyEmail | VerifyEmail |            Verify Email enter the code that sent to user email |
+| Path         |      Component      |                                                       Behavior |
+| :----------- | :-----------------: | -------------------------------------------------------------: |
+| /            |      Timeline       |                                                      Home page |
+| /register    |      Register       | Signup input, link to login, navigate to homepage after signup |
+| /login       |        Login        |  Login input, link to signup, navigate to homepage after login |
+| /profile     |       Profile       |                user page, account info, posts, comments, likes |
+| /admin       |        Admin        |                         Admin page, all users, delete any user |
+| /verifyEmail |     VerifyEmail     |            Verify Email enter the code that sent to user email |
+| /post        | Post, Comment, Like |                      Post page, number of likes,users comments |
 
 ## Components
 
@@ -43,7 +44,7 @@
 - VerifyEmail
 - Login
 - Timeline
-- User
+- Profile
 - Admin
 - Post
 - Comment

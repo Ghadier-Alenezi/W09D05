@@ -3,13 +3,26 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { login } from "./../reducers/login.js";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  Button,
+  Divider,
+  Heading,
+  Stack,
+  InputRightElement,
+  InputGroup,
+} from "@chakra-ui/react";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
   const state = useSelector((state) => {
     return {
       logInReducer: state.logInReducer,
@@ -37,7 +50,7 @@ const Login = () => {
       const data = {
         token: result.data.token,
         userId: result.data.result._id,
-        userEmail: result.data.result.email
+        userEmail: result.data.result.email,
       };
       // console.log(data);
 
@@ -47,42 +60,58 @@ const Login = () => {
     }
   };
 
-  const toRegister = () => {
-    navigate("/register");
-  };
-
   return (
     <>
-      <h2>Please Login</h2>
-      <hr />
-      <br />
-      <h3>Enter you Email or User Name to log in</h3>
-      <input
-        type="email"
-        placeholder="email"
-        value={userInput}
-        onChange={(e) => {
-          setuserInput(e.target.value);
-        }}
-      />
-      <hr />
-      <br />
-      <h3>Enter your Password</h3>
-      <input
-        type="password"
-        placeholder="password"
-        value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      />
-      <hr />
-      <br />
-      <button onClick={signIn}> Sign in</button>
-      <hr />
-      <br />
-      <h3>You don't have account yet?</h3>
-      <button onClick={toRegister}>Sign Up Now</button>
+      <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
+        <Heading>Please Login</Heading>
+        <Divider height="30px" color="white" />
+        <FormControl id="email" isRequired>
+          <FormLabel m="8px">Enter you Email or User Name to log in</FormLabel>
+
+          <Input
+            type="email"
+            placeholder="email"
+            autoComplete="off"
+            value={userInput}
+            onChange={(e) => {
+              setuserInput(e.target.value);
+            }}
+          />
+
+          <FormHelperText>We'll never share your email.</FormHelperText>
+        </FormControl>
+        <FormControl id="password" isRequired>
+          <Divider height="30px" />
+          <FormLabel m="8px">Enter your Password</FormLabel>
+          <InputGroup>
+            <Input
+              type={showPassword ? "text" : "password"}
+              placeholder="password"
+              autoComplete="off"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <InputRightElement width="4rem">
+              <Button
+                height="1.7rem"
+                size="sm"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {" "}
+                show
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          <FormHelperText>Keep it secret.</FormHelperText>
+        </FormControl>
+        <Divider height="30px" />
+        <Button m="8px" onClick={signIn}>
+          {" "}
+          Sign in
+        </Button>
+      </Stack>
     </>
   );
 };
