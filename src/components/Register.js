@@ -15,6 +15,7 @@ import {
   InputRightElement,
   InputGroup,
 } from "@chakra-ui/react";
+import PasswordChecklist from "react-password-checklist";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -99,9 +100,32 @@ const Register = () => {
               </Button>
             </InputRightElement>
           </InputGroup>
+          <PasswordChecklist
+            rules={[
+              "minLength",
+              "specialChar",
+              "number",
+              "capital",
+              "lowercase",
+            ]}
+            minLength={6}
+            value={password}
+            onChange={(isValid) => {
+              if (isValid) {
+                const button = document.querySelector("#signupSubmitButton");
+                button.disabled = false;
+              } else {
+                const button = document.querySelector("#signupSubmitButton");
+                button.disabled = true;
+              }
+            }}
+          />
           <FormHelperText>Keep it secret.</FormHelperText>
         </FormControl>
-        <Button onClick={signUp}> Sign Up</Button>
+        <Button id="signupSubmitButton" onClick={signUp}>
+          {" "}
+          Sign Up
+        </Button>
         <LoginGoogle />
       </Stack>
     </>
