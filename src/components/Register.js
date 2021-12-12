@@ -48,7 +48,7 @@ const Register = () => {
   return (
     <>
       <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
-        <Heading>Sign Up</Heading>
+        <Heading>Sign Up Here</Heading>
         <Divider height="30px" color="white" />
         <FormControl isRequired>
           <FormLabel m="8px">Your User Name</FormLabel>

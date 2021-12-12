@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { login } from "./../reducers/login.js";
+import LoginGoogle from "./LoginGoogle";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FormControl,
@@ -106,11 +107,13 @@ const Login = () => {
           </InputGroup>
           <FormHelperText>Keep it secret.</FormHelperText>
         </FormControl>
-        <Divider height="30px" />
+        <Divider height="20px" />
         <Button m="8px" onClick={signIn}>
           {" "}
           Sign in
         </Button>
+        <LoginGoogle />
+        
       </Stack>
     </>
   );
