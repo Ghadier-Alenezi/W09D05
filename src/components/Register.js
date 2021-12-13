@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import LoginGoogle from "./LoginGoogle";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage,
+  // FormErrorMessage,
   FormHelperText,
   Input,
   Button,
@@ -14,21 +16,25 @@ import {
   Stack,
   InputRightElement,
   InputGroup,
+  Text,
 } from "@chakra-ui/react";
 import PasswordChecklist from "react-password-checklist";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Register = () => {
+  const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [avatar, setAvatar] = useState("")
+  const [logged, setLogged] = useState(false);
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const [role, setRole] = useState("61a750d07acff210a70d2b8c");
-  const navigate = useNavigate();
+  const state = useSelector((state) => {
+    return {
+      logInReducer: state.logInReducer,
+    };
+  });
 
   const signUp = async () => {
     try {
@@ -36,11 +42,11 @@ const Register = () => {
         userName,
         email,
         password,
-        role,
       });
       console.log(result);
       if (result.status === 200) navigate("/verifyEmail");
-      else setMessage("there is somthin wrong!");
+      else setMessage("there is somthing wrong!");
+
     } catch (error) {
       console.log(error);
     }
@@ -127,6 +133,17 @@ const Register = () => {
           Sign Up
         </Button>
         <LoginGoogle />
+        <Text>
+          You already have an account?
+          <Button
+            m="8px"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login Here
+          </Button>
+        </Text>
       </Stack>
     </>
   );

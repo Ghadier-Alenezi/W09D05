@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const VerifyEmail = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const [userId, setuserId] = useState("");
   const [otp, setotp] = useState("");
 

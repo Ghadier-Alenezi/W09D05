@@ -4,7 +4,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import store from "./reducers";
 import { Provider } from "react-redux";
-import { extendTheme, ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from "@chakra-ui/react";
 
 ReactDOM.render(
   <Provider store={store}>

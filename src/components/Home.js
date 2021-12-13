@@ -2,14 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import Timeline from "./Timeline";
-import { Box, Image, Flex, Text, Heading, Spacer, Button } from "@chakra-ui/react";
+import Post from "./Post";
+import {
+  Box,
+  Text,
+  Button,
+} from "@chakra-ui/react";
+import Header from "./Header";
 
 const Home = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [posts, setPosts] = useState("");
   const [logged, setLogged] = useState(false);
 
@@ -43,7 +49,7 @@ const Home = () => {
         <Text fontSize="xl">Here you can freely connect to friends</Text>
         <Text fontSize="lg">share your awesome posts</Text>
       </Box> */}
-
+      <Header />
       {!state.logInReducer.token ? (
         <div className="home">
           {logged ? (
@@ -59,7 +65,8 @@ const Home = () => {
               <Login />
               <Text>
                 You don't have an account yet?
-                <Button m="8px"
+                <Button
+                  m="8px"
                   onClick={(e) => {
                     setLogged(true);
                   }}
@@ -74,7 +81,8 @@ const Home = () => {
         <Routes>
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
-          <Route exact path="/timeline" element={<Timeline />} />
+          <Route exact path="/" element={<Timeline />} />
+          <Route exact path="/postPage/:id" element={<Post />} />
         </Routes>
       )}
     </Box>

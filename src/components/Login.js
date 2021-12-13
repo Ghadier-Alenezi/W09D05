@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { login } from "./../reducers/login.js";
 import LoginGoogle from "./LoginGoogle";
+import { login } from "../reducers/login";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FormControl,
@@ -16,6 +16,7 @@ import {
   Stack,
   InputRightElement,
   InputGroup,
+  Text,
 } from "@chakra-ui/react";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -23,6 +24,8 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [logged, setLogged] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const state = useSelector((state) => {
     return {
@@ -56,6 +59,7 @@ const Login = () => {
       // console.log(data);
 
       dispatch(login(data));
+      navigate("/")
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +117,18 @@ const Login = () => {
           Sign in
         </Button>
         <LoginGoogle />
-        
+
+        <Text>
+          You don't have an account yet?
+          <Button
+            m="8px"
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            Register Here
+          </Button>
+        </Text>
       </Stack>
     </>
   );
