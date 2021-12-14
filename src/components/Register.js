@@ -54,7 +54,8 @@ const Register = () => {
 
   return (
     <>
-      <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
+          <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
+
         <Heading>Sign Up Here</Heading>
         <Divider height="30px" color="white" />
         <FormControl isRequired>
@@ -68,7 +69,7 @@ const Register = () => {
               setUserName(e.target.value);
             }}
           />
-          <FormHelperText>Pic a unique user name.</FormHelperText>
+          <FormHelperText>Pick a unique user name.</FormHelperText>
         </FormControl>
         <FormControl isRequired>
           <FormLabel m="8px">Your Email</FormLabel>
@@ -133,18 +134,7 @@ const Register = () => {
           Sign Up
         </Button>
         <LoginGoogle />
-        <Text>
-          You already have an account?
-          <Button
-            m="8px"
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Login Here
-          </Button>
-        </Text>
-      </Stack>
+        </Stack>
     </>
   );
 };

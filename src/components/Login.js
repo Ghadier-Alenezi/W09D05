@@ -50,16 +50,19 @@ const Login = () => {
           },
         }
       );
-      // console.log(result.data.result.email);
+      console.log(result.data.result.avatar);
+
       const data = {
         token: result.data.token,
         userId: result.data.result._id,
         userEmail: result.data.result.email,
+        userName: result.data.result.userName,
+        userAvatar: result.data.result.avatar
       };
       // console.log(data);
 
       dispatch(login(data));
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -117,18 +120,6 @@ const Login = () => {
           Sign in
         </Button>
         <LoginGoogle />
-
-        <Text>
-          You don't have an account yet?
-          <Button
-            m="8px"
-            onClick={() => {
-              navigate("/register");
-            }}
-          >
-            Register Here
-          </Button>
-        </Text>
       </Stack>
     </>
   );

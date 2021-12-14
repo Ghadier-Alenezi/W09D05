@@ -13,24 +13,27 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Flex,
+  Button,
+  Input,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoIosTrash } from "react-icons/io";
+
 import { BsFillChatSquareDotsFill, BsFillHeartFill } from "react-icons/bs";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Post = () => {
   const [post, setPost] = useState([]);
-  const [id, setId] = useState(0);
   const [comments, setComments] = useState([]);
   const [likes, setlikes] = useState([]);
   const [avatar, setAvatar] = useState("");
   const [userName, setUsername] = useState("");
   const [likeCounter, setLikeCounter] = useState(0);
   const [commentCounter, setCommentCounter] = useState(0);
+  const [comment, setComment] = useState("");
 
   let postId = useParams().id;
   const state = useSelector((state) => {
@@ -58,18 +61,59 @@ const Post = () => {
     }
   };
   // console.log(comments.length);
-  // console.log(likes.length);
+  // console.log(post._id);
 
-  // get the comment of the post
+  // add new comment
+  const newComment = async () => {
+    try {
+      const result = await axios.post(
+        `${BASE_URL}/newComment/${post._id}`,
+        {
+          desc: comment,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.logInReducer.token}`,
+          },
+        }
+      );
+      // console.log(result.status);
+      if (result.status === 201) {
+        postPage();
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
+
+  // /deleteComment/:id
+const deleteComment = async()=>{
+  try {
+    const result = await axios.put(
+      `${BASE_URL}/deleteComment/${post._id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${state.logInReducer.token}`,
+        },
+      }
+    );
+    console.log(result.status);
+    // if (result.status === 201) {
+    //   postPage();
+    // }
+  } catch (error) {
+    console.log(error.response);
+  }
+}
   useEffect(() => {
     postPage();
   }, []);
 
   return (
-    <div>
+    <>
       {post && (
-        <Center key={post.id}>
+        <Center key={post._id}>
           <Box
             p="5"
             maxW="60%"
@@ -77,9 +121,11 @@ const Post = () => {
             boxShadow="2xl"
             p="6"
             rounded="md"
+            // position=""
           >
-            <Flex>
-              <Box w="1000%" h="60px" display="fixed">
+            {/* <Wrap spacing="30px" align="center"> */}
+            <WrapItem mt="30">
+              <Center>
                 <Image
                   borderRadius="md"
                   src={avatar}
@@ -98,7 +144,7 @@ const Post = () => {
                 >
                   {userName}
                 </Text>
-                <Menu w="120px" h="80px">
+                <Menu>
                   <MenuButton
                     as={IconButton}
                     aria-label="Options"
@@ -110,56 +156,55 @@ const Post = () => {
                     <MenuItem>Delete Post</MenuItem>
                   </MenuList>
                 </Menu>
-              </Box>
-            </Flex>
-            <Spacer />
-            <Text
-              mt={2}
-              fontSize="s"
-              fontWeight="semibold"
-              textAlign="center"
-              pb="3"
-            >
-              {post.title}
-            </Text>
-            <Box p="2">
-              <Text mt={2} fontSize="xl" lineHeight="short">
-                {post.desc}
-              </Text>
-            </Box>
-            <Image
-              pt="5"
-              size="s"
-              borderRadius="md"
-              src={post.img}
-              alt={post._id}
-            ></Image>
-            <Spacer />
-            <Flex></Flex>
-            <Box pt="3">
-              <IconButton
-                colorScheme="blue"
-                aria-label="comment btn"
-                size="lg"
-                m="2"
-                icon={<BsFillChatSquareDotsFill />}
-                onClick={(e) => {
-                  console.log(e);
-                }}
-              />
-              <p>{commentCounter}</p>
-              <IconButton
-                colorScheme="red"
-                aria-label="like btn"
-                size="lg"
-                m="2"
-                icon={<BsFillHeartFill />}
-                onClick={(e) => {
-                  console.log(e);
-                }}
-              />
-              <p>{likeCounter}</p>
-            </Box>
+              </Center>
+            </WrapItem>
+            <WrapItem>
+              <Center>
+                <Box p="2">
+                  <Text
+                    mt={2}
+                    fontSize="s"
+                    fontWeight="semibold"
+                    textAlign="center"
+                    pb="3"
+                  >
+                    {post.title}
+                  </Text>
+                  <Text mt={2} fontSize="xl" lineHeight="short">
+                    {post.desc}
+                  </Text>
+                  <Image
+                    pt="5"
+                    size="s"
+                    borderRadius="md"
+                    src={post.img}
+                    alt={post._id}
+                  ></Image>
+                  <Spacer />{" "}
+                  <IconButton
+                    colorScheme="blue"
+                    aria-label="comment btn"
+                    size="lg"
+                    m="2"
+                    icon={<BsFillChatSquareDotsFill />}
+                  />
+                  <p>{commentCounter}</p>
+                  <IconButton
+                    colorScheme="red"
+                    aria-label="like btn"
+                    size="lg"
+                    m="2"
+                    icon={<BsFillHeartFill />}
+                    onClick={(e) => {
+                      console.log(e);
+                      setLikeCounter(likeCounter + 1);
+                    }}
+                  />
+                  <p>{likeCounter}</p>
+                </Box>{" "}
+              </Center>
+            </WrapItem>
+            {/* </Wrap> */}
           </Box>
           <Spacer />
           <Box>
@@ -169,11 +214,20 @@ const Post = () => {
                   return (
                     <Box
                       key={elem.id}
-                      backgroundColor="lightBlue"
+                      backgroundColor="lightGray"
                       width="100%"
-                      m="1"
-                      p="1"
+                      m="4"
+                      p="3"
                     >
+                      <IconButton
+                    colorScheme="blue"
+                    aria-label="comment btn"
+                    // size=""
+                    m="2"
+                    onClick={deleteComment}
+                    icon={<IoIosTrash/>}
+                  />
+                      
                       <Image
                         borderRadius="50%"
                         boxSize="40px"
@@ -184,12 +238,27 @@ const Post = () => {
                     </Box>
                   );
                 })}
+                <Center>
+                  <Box mb="4">
+                    <Input
+                      size="md"
+                      w="400px"
+                      h="80px"
+                      mr="4"
+                      placeholder="write your comment here"
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                      }}
+                    />
+                    <Button onClick={newComment}>add comment</Button>
+                  </Box>
+                </Center>
               </>
             )}
           </Box>
         </Center>
       )}
-    </div>
+    </>
   );
 };
 

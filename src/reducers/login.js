@@ -4,6 +4,8 @@ const initialState = {
   token: null,
   userId: null,
   userEmail: null,
+  userName: null,
+  userAvatar: null
 };
 // second we need to write a reducer function that take 2 argument: initialState, action
 const logInReducer = (state = initialState, action) => {
@@ -12,26 +14,34 @@ const logInReducer = (state = initialState, action) => {
   //payload: is the actual information or message in transmitted data, as opposed to automatically generated metadata.
   switch (type) {
     case "LOGIN":
-      const { token, userId, userEmail } = payload;
+      const { token, userId, userEmail, userName , userAvatar} = payload;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
-      localStorage.setItem("userEmail", userEmail); //what we need to do
+      localStorage.setItem("userName", userName);
+      localStorage.setItem("userEmail", userEmail); 
+      localStorage.setItem("userAvatar", userAvatar); //what we need to do
+      //what we need to do
       // console.log(`token ${token}, userId ${userId}`);
       return { token }; // this is the change we need to return when this case is called
 
     case "LOGOUT":
       localStorage.clear();
-      return { token: null, userId: null, userEmail: null };
+      return { token: null, userId: null, userEmail: null, userName: null, userAvatar: null };
 
     default:
       const tokenStorage = localStorage.getItem("token");
       const userIdStorage = localStorage.getItem("userId");
       const userEmailStorage = localStorage.getItem("userEmail");
+      const userNamelStorage = localStorage.getItem("userName");
+      const userAvatarlStorage = localStorage.getItem("userAvatar");
+
       if (tokenStorage)
         return {
           token: tokenStorage,
           userId: userIdStorage,
           userEmail: userEmailStorage,
+          userName: userNamelStorage,
+          userAvatar: userAvatarlStorage
         };
       else return state; //default = initial state
   }

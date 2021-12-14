@@ -3,14 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import {
-  Box,
-  Image,
-  Text,
-  Center,
-  IconButton,
-  Spacer,
-} from "@chakra-ui/react";
+import { Box, Image, Text, Center, IconButton, Spacer } from "@chakra-ui/react";
 import { BsFillChatSquareDotsFill, BsFillHeartFill } from "react-icons/bs";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -36,9 +29,9 @@ const Timeline = () => {
   // console.log(posts);
 
   // too the post page
-  const onePost = (id) =>{
-    navigate(`/postPage/${id}`)
-  }
+  const onePost = (id) => {
+    navigate(`/postPage/${id}`);
+  };
   return (
     <>
       {posts && posts.length
@@ -46,15 +39,15 @@ const Timeline = () => {
             return (
               <Center key={ele._id}>
                 <Box
-                  p="5"
-                  maxW="60%"
+                  maxW="75%"
                   borderWidth="1px"
                   boxShadow="2xl"
                   p="6"
+                  m="5"
                   rounded="md"
                   bg="white"
-                  onClick={()=>{
-                    onePost(ele._id)
+                  onClick={() => {
+                    onePost(ele._id);
                   }}
                 >
                   <Text
@@ -69,16 +62,6 @@ const Timeline = () => {
                   </Text>
                   <Spacer />
                   <Image borderRadius="md" src={ele.img} alt={ele._id}></Image>
-                  <Box p="2">
-                    <Text
-                      mt={2}
-                      fontSize="xl"
-                      fontWeight="semibold"
-                      lineHeight="short"
-                    >
-                      {ele.desc}
-                    </Text>
-                  </Box>
                   <Spacer />
                   <Box>
                     <IconButton
