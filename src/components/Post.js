@@ -34,6 +34,7 @@ const Post = () => {
   const [likeCounter, setLikeCounter] = useState(0);
   const [commentCounter, setCommentCounter] = useState(0);
   const [comment, setComment] = useState("");
+  const [userId, setUserId] = useState(null);
 
   let postId = useParams().id;
   const state = useSelector((state) => {
@@ -86,26 +87,24 @@ const Post = () => {
     }
   };
 
-
-  // /deleteComment/:id
-const deleteComment = async()=>{
-  try {
-    const result = await axios.put(
-      `${BASE_URL}/deleteComment/${post._id}`,
-      {
+  // /deleteComment/:id of the comment
+  const deleteComment = async (id) => {
+    try {
+      const result = await axios.delete(`${BASE_URL}/deleteComForEver/${id}`, {
         headers: {
           Authorization: `Bearer ${state.logInReducer.token}`,
         },
+      });
+      // console.log( "comment user",result.data.user);
+      // console.log("login user", state.logInReducer.userId);
+      if (result.status === 200) {
+        postPage();
       }
-    );
-    console.log(result.status);
-    // if (result.status === 201) {
-    //   postPage();
-    // }
-  } catch (error) {
-    console.log(error.response);
-  }
-}
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   useEffect(() => {
     postPage();
   }, []);
@@ -121,9 +120,7 @@ const deleteComment = async()=>{
             boxShadow="2xl"
             p="6"
             rounded="md"
-            // position=""
           >
-            {/* <Wrap spacing="30px" align="center"> */}
             <WrapItem mt="30">
               <Center>
                 <Image
@@ -208,26 +205,33 @@ const deleteComment = async()=>{
           </Box>
           <Spacer />
           <Box>
-            {comments && (
+            {comments && comments.length > 1 ? (
               <>
                 {comments.map((elem) => {
+                  // console.log(elem.user._id);
                   return (
                     <Box
-                      key={elem.id}
+                      key={elem._id}
                       backgroundColor="lightGray"
                       width="100%"
                       m="4"
                       p="3"
                     >
-                      <IconButton
-                    colorScheme="blue"
-                    aria-label="comment btn"
-                    // size=""
-                    m="2"
-                    onClick={deleteComment}
-                    icon={<IoIosTrash/>}
-                  />
-                      
+                      {state.logInReducer.userId === elem.user._id ? (
+                        <IconButton
+                          colorScheme="blue"
+                          aria-label="comment btn"
+                          // size=""
+                          m="2"
+                          onClick={() => {
+                            deleteComment(elem._id);
+                          }}
+                          icon={<IoIosTrash />}
+                        />
+                      ) : (
+                        ""
+                      )}
+
                       <Image
                         borderRadius="50%"
                         boxSize="40px"
@@ -238,23 +242,26 @@ const deleteComment = async()=>{
                     </Box>
                   );
                 })}
-                <Center>
-                  <Box mb="4">
-                    <Input
-                      size="md"
-                      w="400px"
-                      h="80px"
-                      mr="4"
-                      placeholder="write your comment here"
-                      onChange={(e) => {
-                        setComment(e.target.value);
-                      }}
-                    />
-                    <Button onClick={newComment}>add comment</Button>
-                  </Box>
-                </Center>
+                )
               </>
+            ) : (
+              ""
             )}
+            <Center>
+              <Box mb="4">
+                <Input
+                  size="md"
+                  w="400px"
+                  h="80px"
+                  mr="4"
+                  placeholder="write your comment here"
+                  onChange={(e) => {
+                    setComment(e.target.value);
+                  }}
+                />
+                <Button onClick={newComment}>add comment</Button>
+              </Box>
+            </Center>
           </Box>
         </Center>
       )}
