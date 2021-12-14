@@ -3,6 +3,7 @@ import axios from "axios";
 import LoginGoogle from "./LoginGoogle";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { login } from "../reducers/login";
 
 import {
   FormControl,
@@ -12,6 +13,7 @@ import {
   Input,
   Button,
   Divider,
+  Box,
   Heading,
   Stack,
   InputRightElement,
@@ -46,7 +48,6 @@ const Register = () => {
       console.log(result);
       if (result.status === 200) navigate("/verifyEmail");
       else setMessage("there is somthing wrong!");
-
     } catch (error) {
       console.log(error);
     }
@@ -54,9 +55,9 @@ const Register = () => {
 
   return (
     <>
-          <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
-
-        <Heading>Sign Up Here</Heading>
+      <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
+        <Box >
+        <Heading>PLease Sign Up</Heading>
         <Divider height="30px" color="white" />
         <FormControl isRequired>
           <FormLabel m="8px">Your User Name</FormLabel>
@@ -134,7 +135,8 @@ const Register = () => {
           Sign Up
         </Button>
         <LoginGoogle />
-        </Stack>
+        </Box>
+      </Stack>
     </>
   );
 };

@@ -49,10 +49,10 @@ const Home = () => {
 
       <NavBar />
       {!state.logInReducer.token ? (
-        <div className="home">
+        <>
           {logged ? (
             <>
-              <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
+              <Stack>
                 <Register />
                 <Text pt="4">
                   Do you already have an account?
@@ -64,7 +64,7 @@ const Home = () => {
             </>
           ) : (
             <>
-              <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
+              <Stack>
                 <Login />
                 <Text>
                   You don't have an account yet?
@@ -81,7 +81,7 @@ const Home = () => {
               </Stack>
             </>
           )}
-        </div>
+        </>
       ) : (
         <Routes>
           <Route exact path="/" element={<Timeline />} />

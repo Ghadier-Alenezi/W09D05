@@ -50,7 +50,7 @@ const Login = () => {
           },
         }
       );
-      console.log(result.data.result.avatar);
+      // console.log(result.data.result.avatar);
 
       const data = {
         token: result.data.token,

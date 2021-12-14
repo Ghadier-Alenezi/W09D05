@@ -2,14 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Image,
-  Button,
-  Center,
-  Stack,
-  Box,
-  Text,
-} from "@chakra-ui/react";
+import { Image, Button, Center, Stack, Box, Text } from "@chakra-ui/react";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -50,28 +43,33 @@ const Profile = () => {
         rounded="md"
         bg="white"
       >
-        <Image
-          borderRadius="md"
-          src={avatar}
-          alt="avatarImg"
-          borderRadius="50%"
-          boxSize="150px"
-          src={state.logInReducer.userAvatar}
-        />
-        <Text>Your user name is:</Text>
-
-        <Text>{state.logInReducer.userName}</Text>
-        <Text>Your Email is:</Text>
-
-        <Text>{state.logInReducer.userEmail}</Text>
+        <Box  display="flex">
+          {" "}
+          <Image
+            borderRadius="md"
+            src={avatar}
+            alt="avatarImg"
+            borderRadius="50%"
+            boxSize="150px"
+            src={state.logInReducer.userAvatar}
+          />
+        </Box>
+        <Box>
+          <Text>Your user name is:</Text>
+          <Text>{state.logInReducer.userName}</Text>
+          <Text>Your Email is:</Text>
+          <Text>{state.logInReducer.userEmail}</Text>
+        </Box>
       </Box>
       <Box>
-        <Text>Posts</Text>
+        <Text fontWeight="bold" fontSize="x-large" textAlign="center">
+           User Posts
+        </Text>
       </Box>
 
       {posts && posts.length
         ? posts.map((elem) => {
-            console.log(elem);
+            // console.log(elem);
             return (
               <Center key={`${elem._id}`}>
                 <Box

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { storage } from "./firebase";
 import axios from "axios";
 import {
   Box,
@@ -35,13 +36,14 @@ const Post = () => {
   const [commentCounter, setCommentCounter] = useState(0);
   const [comment, setComment] = useState("");
   const [userId, setUserId] = useState(null);
+  
 
-  let postId = useParams().id;
   const state = useSelector((state) => {
     return state;
   });
 
   // get the post
+  let postId = useParams().id;
   const postPage = async () => {
     try {
       const result = await axios.get(`${BASE_URL}/postDetails/${postId}`, {
@@ -205,7 +207,7 @@ const Post = () => {
           </Box>
           <Spacer />
           <Box>
-            {comments && comments.length > 1 ? (
+            {comments && (
               <>
                 {comments.map((elem) => {
                   // console.log(elem.user._id);
@@ -244,8 +246,6 @@ const Post = () => {
                 })}
                 )
               </>
-            ) : (
-              ""
             )}
             <Center>
               <Box mb="4">

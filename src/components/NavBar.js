@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Spacer, Flex, Heading, Button } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const NavBar = () => {
     localStorage.clear();
     navigate("/login");
   };
+
   return (
     <Flex>
       <Box p="5">
