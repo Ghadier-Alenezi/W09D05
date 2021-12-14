@@ -9,7 +9,6 @@ import {
   FormControl,
   FormLabel,
   // FormErrorMessage,
-  FormHelperText,
   Input,
   Button,
   Divider,
@@ -18,7 +17,7 @@ import {
   Stack,
   InputRightElement,
   InputGroup,
-  Text,
+  Center,
 } from "@chakra-ui/react";
 import PasswordChecklist from "react-password-checklist";
 
@@ -56,85 +55,87 @@ const Register = () => {
   return (
     <>
       <Stack boxShadow="2xl" p="6" rounded="md" bg="white">
-        <Box >
-        <Heading>PLease Sign Up</Heading>
-        <Divider height="30px" color="white" />
-        <FormControl isRequired>
-          <FormLabel m="8px">Your User Name</FormLabel>
-          <Input
-            type="name"
-            placeholder="user name"
-            autoComplete="off"
-            value={userName}
-            onChange={(e) => {
-              setUserName(e.target.value);
-            }}
-          />
-          <FormHelperText>Pick a unique user name.</FormHelperText>
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel m="8px">Your Email</FormLabel>
-          <Input
-            type="email"
-            placeholder="email"
-            autoComplete="off"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <FormHelperText>We'll never share your email.</FormHelperText>
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel m="8px">Your Password</FormLabel>
-          <InputGroup>
+        <Box>
+          <Heading>PLease Sign Up</Heading>
+          <Divider height="30px" color="white" />
+          <FormControl isRequired>
+            <FormLabel m="8px">Your User Name</FormLabel>
             <Input
-              type={showPassword ? "text" : "password"}
-              placeholder="password"
+              type="name"
+              placeholder="user name"
               autoComplete="off"
-              value={password}
+              value={userName}
               onChange={(e) => {
-                setPassword(e.target.value);
+                setUserName(e.target.value);
               }}
             />
-            <InputRightElement width="4rem">
-              <Button
-                height="1.7rem"
-                size="sm"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {" "}
-                show
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-          <PasswordChecklist
-            rules={[
-              "minLength",
-              "specialChar",
-              "number",
-              "capital",
-              "lowercase",
-            ]}
-            minLength={6}
-            value={password}
-            onChange={(isValid) => {
-              if (isValid) {
-                const button = document.querySelector("#signupSubmitButton");
-                button.disabled = false;
-              } else {
-                const button = document.querySelector("#signupSubmitButton");
-                button.disabled = true;
-              }
-            }}
-          />
-          <FormHelperText>Keep it secret.</FormHelperText>
-        </FormControl>
-        <Button id="signupSubmitButton" onClick={signUp}>
-          {" "}
-          Sign Up
-        </Button>
-        <LoginGoogle />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel m="8px">Your Email</FormLabel>
+            <Input
+              type="email"
+              placeholder="email"
+              autoComplete="off"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel m="8px">Your Password</FormLabel>
+            <InputGroup>
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="password"
+                autoComplete="off"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+              <InputRightElement width="4rem">
+                <Button
+                  height="1.7rem"
+                  mr="3"
+                  size="sm"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {" "}
+                  show
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            <PasswordChecklist
+              rules={[
+                "minLength",
+                "specialChar",
+                "number",
+                "capital",
+                "lowercase",
+              ]}
+              minLength={6}
+              value={password}
+              onChange={(isValid) => {
+                if (isValid) {
+                  const button = document.querySelector("#signupSubmitButton");
+                  button.disabled = false;
+                } else {
+                  const button = document.querySelector("#signupSubmitButton");
+                  button.disabled = true;
+                }
+              }}
+            />
+          </FormControl>
+          <Center>
+            {" "}
+            <Button id="signupSubmitButton" onClick={signUp}>
+              {" "}
+              Sign Up
+            </Button>
+          </Center>
+
+          <LoginGoogle />
         </Box>
       </Stack>
     </>

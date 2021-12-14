@@ -14,6 +14,7 @@ import {
   Divider,
   Heading,
   Stack,
+  Center,
   InputRightElement,
   InputGroup,
   Text,
@@ -85,8 +86,6 @@ const Login = () => {
               setuserInput(e.target.value);
             }}
           />
-
-          <FormHelperText>We'll never share your email.</FormHelperText>
         </FormControl>
         <FormControl id="password" isRequired>
           <Divider height="30px" />
@@ -104,6 +103,7 @@ const Login = () => {
             <InputRightElement width="4rem">
               <Button
                 height="1.7rem"
+                mr="3"
                 size="sm"
                 onClick={() => setShowPassword(!showPassword)}
               >
@@ -112,13 +112,14 @@ const Login = () => {
               </Button>
             </InputRightElement>
           </InputGroup>
-          <FormHelperText>Keep it secret.</FormHelperText>
         </FormControl>
         <Divider height="20px" />
+        <Center>
         <Button m="8px" onClick={signIn}>
           {" "}
           Sign in
         </Button>
+        </Center>
         <LoginGoogle />
       </Stack>
     </>

@@ -244,7 +244,7 @@ const Post = () => {
                     </Box>
                   );
                 })}
-                )
+                
               </>
             )}
             <Center>
