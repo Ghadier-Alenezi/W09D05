@@ -35,80 +35,36 @@ const Profile = () => {
 
   return (
     <>
-      {state ? (
+      {state && (
         <>
-             <Box
-        maxW="75%"
-        borderWidth="1px"
-        boxShadow="2xl"
-        p="6"
-        m="5"
-        rounded="md"
-        bg="white"
-      >
-        <Box  display="flex">
-          {" "}
-          <Image
-            borderRadius="md"
-            src={avatar}
-            alt="avatarImg"
-            borderRadius="50%"
-            boxSize="150px"
-            src={state.logInReducer.userAvatar}
-          />
-        </Box>
-        <Box>
-          <Text>User Name:</Text>
-          <Text>{state.logInReducer.userName}</Text>
-          <Text>User Email:</Text>
-          <Text>{state.logInReducer.userEmail}</Text>
-        </Box>
-      </Box>
-          <Box>
-            <Text fontWeight="bold" fontSize="x-large" textAlign="center">
-              User Posts
-            </Text>
+          <Box
+            maxW="75%"
+            borderWidth="1px"
+            boxShadow="2xl"
+            p="6"
+            m="5"
+            rounded="md"
+            bg="white"
+          >
+            <Box display="flex">
+              {" "}
+              <Image
+                borderRadius="md"
+                src={avatar}
+                alt="avatarImg"
+                borderRadius="50%"
+                boxSize="150px"
+                src={state.logInReducer.userAvatar}
+              />
+            </Box>
+            <Box>
+              <Text>User Name:</Text>
+              <Text>{state.logInReducer.userName}</Text>
+              <Text>User Email:</Text>
+              <Text>{state.logInReducer.userEmail}</Text>
+            </Box>
           </Box>
-          {posts && posts.length
-            ? posts.map((elem) => {
-                // console.log(elem);
-                return (
-                  <Center key={`${elem._id}`}>
-                    <Box
-                      maxW="60%"
-                      borderWidth="1px"
-                      boxShadow="2xl"
-                      p="6"
-                      m="5"
-                      rounded="md"
-                      bg="white"
-                      onClick={() => {
-                        navigate(`/postPage/${elem._id}`);
-                      }}
-                    >
-                      <Text
-                        mt={2}
-                        fontSize="xl"
-                        fontWeight="semibold"
-                        lineHeight="short"
-                        textAlign="center"
-                        pb="3"
-                      >
-                        {elem.title}
-                      </Text>
-                      <Image
-                        borderRadius="md"
-                        src={elem.img}
-                        alt={elem._id}
-                      ></Image>
-                    </Box>
-                  </Center>
-                );
-              })
-            : ""}
         </>
-      ) : (
-        ""
       )}
     </>
   );

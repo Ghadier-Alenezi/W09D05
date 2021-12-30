@@ -7,9 +7,8 @@ import Register from "./Register";
 import Login from "./Login";
 import Timeline from "./Timeline";
 import Post from "./Post";
-import NavBar from "./NavBar";
 import Profile from "./Profile";
-import { Box, Text, Button, Stack } from "@chakra-ui/react";
+import { Box, Text, Button, Stack, Heading } from "@chakra-ui/react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -41,13 +40,9 @@ const Home = () => {
 
   return (
     <Box m={0} p={0}>
-      {/* <Box display="block" pos="absolute" textAlign="center">
-        <Text fontSize="4xl">Welcome</Text>
-        <Text fontSize="xl">Here you can freely connect to friends</Text>
-        <Text fontSize="lg">share your awesome posts</Text>
-      </Box> */}
-
-      <NavBar />
+      <Box p="5">
+        <Heading size="lg">Thoughts</Heading>
+      </Box>
       {!state.logInReducer.token ? (
         <>
           {logged ? (

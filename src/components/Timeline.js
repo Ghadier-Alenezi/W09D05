@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { storage } from "./firebase";
+import { IoIosTrash } from "react-icons/io";
 
 import axios from "axios";
 import {
@@ -16,6 +17,7 @@ import {
   // FormErrorMessage,
   FormHelperText,
   Input,
+  Heading,
   Button,
 } from "@chakra-ui/react";
 import { BsFillChatSquareDotsFill, BsFillHeartFill } from "react-icons/bs";
@@ -51,13 +53,14 @@ const Timeline = () => {
   // console.log(posts);
 
   const handleChange = (e) => {
+    console.log(e.target.files[0]);
     if (e.target.files[0]) {
-      setImg(e.target.files[0]);
+      setnewPost(e.target.files[0]);
     }
   };
 
   const handleUpload = () => {
-    const uploadTask = storage.ref(`images/${img.name}`).put(img);
+    const uploadTask = storage.ref(`image/${newpost.name}`).put(newpost);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -71,28 +74,30 @@ const Timeline = () => {
       },
       () => {
         storage
-          .ref("images")
-          .child(img.name)
+          .ref("image")
+          .child(newpost.name)
           .getDownloadURL()
           .then((url) => {
+            console.log(url);
             setUrl(url);
+          })
+          .catch((error) => {
+            console.log(error);
           });
       }
     );
   };
 
   // add new post function
-  const newPost = async (e) => {
-    e.preventDefault();
+
+  const newPost = async () => {
     try {
-      let addPost = e.target.addPost.value;
-      console.log(addPost);
-      const result = await axios.post(
+      await axios.post(
         `${BASE_URL}/newPost`,
         {
           title,
-          desc,
           img: url,
+          desc,
         },
         {
           headers: {
@@ -100,25 +105,11 @@ const Timeline = () => {
           },
         }
       );
-      setnewPost(result.data);
-      getPosts();
-      e.target.newPost.value = "";
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // delete a post
-  const deletePost = async (id) => {
-    try {
-      // eslint-disable-next-line
-      let res = await axios.delete(`${BASE_URL}/deletepost/${id}`, {
-        headers: {
-          Authorization: `Bearer ${state.logInReducer.token}`,
-        },
-      });
-      console.log(res);
 
       getPosts();
+      // setTitle("");
+      // setUrl("");
+      // setDesc("");
     } catch (error) {
       console.log(error);
     }
@@ -128,8 +119,29 @@ const Timeline = () => {
   const onePost = (id) => {
     navigate(`/postPage/${id}`);
   };
+
+  // logout
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <>
+      <Spacer />
+      <Box p="5">
+        <Button
+          colorScheme="blue"
+          mr="4"
+          onClick={() => {
+            navigate("/profile");
+          }}
+        >
+          Profile
+        </Button>
+        <Button colorScheme="red" onClick={logOut}>
+          Log out
+        </Button>
+      </Box>
       <>
         <Box boxShadow="2xl" p="6" mt="20" rounded="md" bg="white">
           <FormControl id="newPost">
@@ -147,16 +159,15 @@ const Timeline = () => {
               type="text"
               isRequired
             />
+            <img alt={title} src={url} />
 
-            <div>
-              <Input type="file" name="newPost" onChange={handleChange} />
-              <div>
-                <Input type="file" name="newPost" onChange={handleUpload} />
-                <progress value={progress} max="100" />
-              </div>
+            <br></br>
+            <input type="file" name="post" onChange={handleChange} />
+            <Button onClick={handleUpload}>upload</Button>
+            <Button onClick={newPost}>Add post</Button>
 
-              <Button onClick={newPost}> Add </Button>
-            </div>
+            <br></br>
+            <br></br>
           </FormControl>
         </Box>
       </>

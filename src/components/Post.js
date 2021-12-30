@@ -36,7 +36,6 @@ const Post = () => {
   const [commentCounter, setCommentCounter] = useState(0);
   const [comment, setComment] = useState("");
   const [userId, setUserId] = useState(null);
-  
 
   const state = useSelector((state) => {
     return state;
@@ -65,6 +64,20 @@ const Post = () => {
   };
   // console.log(comments.length);
   // console.log(post._id);
+  // delete a post
+  const deletePost = async (id) => {
+    try {
+      // eslint-disable-next-line
+      let res = await axios.delete(`${BASE_URL}/deletepost/${id}`, {
+        headers: {
+          Authorization: `Bearer ${state.logInReducer.token}`,
+        },
+      });
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // add new comment
   const newComment = async () => {
@@ -159,6 +172,21 @@ const Post = () => {
             </WrapItem>
             <WrapItem>
               <Center>
+                {state.logInReducer.userId === post.user._id ? (
+                  
+                  <IconButton
+                    colorScheme="blue"
+                    aria-label="comment btn"
+                    m="2"
+                    onClick={() => {
+                      deletePost(post._id);
+                    }}
+                    icon={<IoIosTrash />}
+                  />
+                  
+                ) : (
+                  ""
+                )}
                 <Box p="2">
                   <Text
                     mt={2}
@@ -169,6 +197,7 @@ const Post = () => {
                   >
                     {post.title}
                   </Text>
+                  
                   <Text mt={2} fontSize="xl" lineHeight="short">
                     {post.desc}
                   </Text>
@@ -244,7 +273,6 @@ const Post = () => {
                     </Box>
                   );
                 })}
-                
               </>
             )}
             <Center>
